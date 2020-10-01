@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Евгеньевич](https://up.htmlacademy.ru/javascript/21/user/1418299).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав Кривокора](https://up.htmlacademy.ru/adaptive/20/user/167185).
 
 ---
 
