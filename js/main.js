@@ -47,6 +47,8 @@ let getAuthors = function (number) {
   return authors;
 };
 
+getAuthors(8);
+
 // features
 
 let randomFeatures = [];
@@ -88,7 +90,7 @@ let getSomeAdds = function (numberOfAds) {
   for (let i = 0; i < numberOfAds; i++) {
     ads[i] = {
       author: {
-        avatar: getAuthors(numberOfAds)[i]
+        avatar: authors[i]
       },
       offer: getOffers(numberOfAds)[i],
       location: {
