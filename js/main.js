@@ -1,19 +1,25 @@
-// здесь будет говнокод
 "use strict";
 
 // список констант
-
 const ADS_NUMBER = 8;
-const TYPE = ["palace", "flat", "house", "bungalow"];
-const TIME = ["12:00", "13:00", "14:00"];
+const TYPES = ["palace", "flat", "house", "bungalow"];
+const TIMES = ["12:00", "13:00", "14:00"];
 const FEATURES = [" wifi", " dishwasher", " parking", " washer", " elevator", " conditioner"];
+const AUTHORS = ["img/avatars/user01.png", "img/avatars/user02.png", "img/avatars/user03.png", "img/avatars/user04.png", "img/avatars/user05.png", "img/avatars/user06.png", "img/avatars/user07.png", "img/avatars/user08.png"];
 const PHOTOS = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
-const APARTS = {
+const apartsList = {
   flat: "Квартира",
   bungalow: "Бунгало",
   house: "Дом",
   palace: "Дворец"
 };
+const XMIN = 0;
+const XMAX = 750;
+const YMIN = 130;
+const YMAX = 630;
+const XOFFSET = 40;
+const YOFFSET = 20;
+
 
 // функция-рандомайзер
 const getRandomInteger = function (min, max) {
@@ -21,139 +27,110 @@ const getRandomInteger = function (min, max) {
   return Math.round(rand);
 };
 
-// генератор неповторяющихся чисел
-let arrayRandomNumbers;
 
-const getRandomarray = function (min, max) {
-  arrayRandomNumbers = [];
-  let totalNumbers = max - min + 1;
-  let arrayTotalNumbers = [];
-  let tempRandomNumber;
-
-  while (totalNumbers--) {
-    arrayTotalNumbers.push(totalNumbers + min);
-  }
-  while (arrayTotalNumbers.length) {
-    tempRandomNumber = Math.round(Math.random() * (arrayTotalNumbers.length - 1));
-    arrayRandomNumbers.push(arrayTotalNumbers[tempRandomNumber]);
-    arrayTotalNumbers.splice(tempRandomNumber, 1);
-  }
-  return arrayRandomNumbers;
-};
-
-// создаем массив авторов
-
-let authors = [];
-let getAuthors = function (number) {
-  getRandomarray(1, number);
-  for (let i = 0; i < 8; i++) {
-    authors[i] = "img/avatars/user0" + arrayRandomNumbers[i] + ".png";
-  }
-  return authors;
-};
-
-getAuthors(ADS_NUMBER);
-
-// features
-
-let randomFeatures = [];
-let getrandomFeatures = function (array) {
-  randomFeatures = [];
+// функция для получения массива с рандомным количеством элементов
+let randomArrey = [];
+let getrandomArrey = function (array) {
+  randomArrey = [];
   for (let i = 0; i < getRandomInteger(1, array.length); i++) {
-    randomFeatures.push(array[i]);
+    randomArrey.push(array[i]);
   }
-  return randomFeatures;
+  return randomArrey;
 };
 
-// генератор предложений
+// объявим функцию, которая будет создавать массив рандомных предложений. При вызове функции getNewOffer cjp
+let adv = 0;
 
-let offers = [];
+let getNewAdv = function (number) {
+  adv = {
+    author: {
+      avatar: AUTHORS[number]
+    },
 
-let getOffers = function (number) {
-  for (let i = 0; i < number; i++) {
-    offers[i] = {
+    offer: {
       title: "Уютное гнездышко для молодоженов",
       address: getRandomInteger(0, 600) + ", " + getRandomInteger(0, 350),
-      price: getRandomInteger(0, 1000),
-      type: TYPE[getRandomInteger(0, 3)],
+      price: getRandomInteger(2000, 5000),
+      type: TYPES[getRandomInteger(0, 3)],
       rooms: getRandomInteger(0, 10),
       guests: getRandomInteger(0, 20),
-      checkin: TIME[getRandomInteger(0, 2)],
-      checkout: TIME[getRandomInteger(0, 2)],
-      features: getrandomFeatures(FEATURES),
+      checkin: TIMES[getRandomInteger(0, 2)],
+      checkout: TIMES[getRandomInteger(0, 2)],
+      features: getrandomArrey(FEATURES),
       description: "Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.",
-      photos: getrandomFeatures(PHOTOS)
-    };
-  }
-  return offers;
+      photos: getrandomArrey(PHOTOS)
+    },
+
+    location: {
+      x: getRandomInteger(XMIN, XMAX),
+      y: getRandomInteger(YMIN, YMAX)
+    }
+  };
+  return adv;
 };
 
-// создаем массив объектов предложений
-
-let ads = [];
-let getSomeAdds = function (numberOfAds) {
-  for (let i = 0; i < numberOfAds; i++) {
-    ads[i] = {
-      author: {
-        avatar: authors[i]
-      },
-      offer: getOffers(numberOfAds)[i],
-      location: {
-        x: getRandomInteger(0, 750),
-        y: getRandomInteger(130, 630)
-      }
-    };
-  }
-  return ads;
-};
-
-// задание
-
-let map = document.querySelector(".map");
+// Найдем объект "карта" и уберем у него класс "map--faded"
+const map = document.querySelector(".map");
 map.classList.remove("map--faded");
 
 // находим куда вставлять
-let mapPins = document.querySelector(".map__pins");
+const mapPins = document.querySelector(".map__pins");
 
 // находим что вставлять
+const pinTemplate = document.querySelector("#pin").content.querySelector('.map__pin');
 
-let pinTemplate = document.querySelector("#pin").content.querySelector('.map__pin');
+// функция, создающая пин
+let pinElement;
 
-// вставляем
+const createPin = function (object) {
+  pinElement = pinTemplate.cloneNode(true);
+  pinElement.style = "left:" + (object.location.x + XOFFSET) + "px; top: " + (object.location.y + YOFFSET) + "px;";
+  pinElement.querySelector("img").src = object.author.avatar;
+  pinElement.querySelector("img").alt = object.offer.title;
+  fragment.appendChild(pinElement);
+};
 
-getSomeAdds(ADS_NUMBER);
+// функция, создающая карточку
+let cardElement = 0;
+let cardTemplate = document.querySelector("#card").content.querySelector(".popup");
+let fragmentTwo = document.createDocumentFragment();
+let popupPhotos = 0;
 
+let createCard = function (object) {
+  cardElement = cardTemplate.cloneNode(true);
+  cardElement.querySelector(".popup__title").textContent = object.offer.title;
+  cardElement.querySelector(".popup__text--address").textContent = object.offer.address;
+  cardElement.querySelector(".popup__text--price").textContent = object.offer.price + "₽/ночь";
+  cardElement.querySelector(".popup__type").textContent = apartsList[object.offer.type];
+  cardElement.querySelector(".popup__text--capacity").textContent = object.offer.rooms + " комнаты для " + object.offer.guests + " гостей";
+  cardElement.querySelector(".popup__text--time").textContent = "заезд после " + object.offer.checkin + ", выезд до " + object.offer.checkout;
+  cardElement.querySelector(".popup__features").textContent = String(object.offer.features);
+  cardElement.querySelector(".popup__description").textContent = object.offer.description;
+  cardElement.querySelector(".popup__avatar").src = object.author.avatar;
+
+  popupPhotos = cardElement.querySelector(".popup__photos");
+  popupPhotos.querySelector(".popup__photo").src = PHOTOS[0];
+  for (let i = 1; i < PHOTOS.length; i++) {
+    let photo = document.createElement("img");
+    photo.alt = "Фотография жилья";
+    photo.height = 40;
+    photo.width = 40;
+    photo.classList.add("popup__photo");
+    photo.src = PHOTOS[i];
+    popupPhotos.appendChild(photo);
+  }
+
+  fragmentTwo.appendChild(cardElement);
+};
+
+// создаем и вставляем 8 пинов + карточки
 let fragment = document.createDocumentFragment();
 
 for (let i = 0; i < ADS_NUMBER; i++) {
-  let pinElement = pinTemplate.cloneNode(true);
-  pinElement.style = "left:" + (ads[i].location.x + 40) + "px; top: " + (ads[i].location.y + 20) + "px;";
-  pinElement.querySelector("img").src = ads[i].author.avatar;
-  pinElement.querySelector("img").alt = ads[i].offer.title;
-  fragment.appendChild(pinElement);
+  getNewAdv(i);
+  createPin(adv);
+  createCard(adv);
 }
 
 mapPins.appendChild(fragment);
-
-// module3-task2
-// вставляем в mapPins (как на строке 131)
-
-let cardTemplate = document.querySelector("#card").content.querySelector(".popup");
-let fragmentTwo = document.createDocumentFragment();
-
-for (let i = 0; i < ADS_NUMBER; i++) {
-  let cardElement = cardTemplate.cloneNode(true);
-  cardElement.querySelector(".popup__title").textContent = ads[i].offer.title;
-  cardElement.querySelector(".popup__text--address").textContent = ads[i].offer.address;
-  cardElement.querySelector(".popup__text--price").textContent = ads[i].offer.price + "₽/ночь";
-  cardElement.querySelector(".popup__type").textContent = APARTS[ads[i].offer.type];
-  cardElement.querySelector(".popup__text--capacity").textContent = ads[i].offer.rooms + " комнаты для " + ads[i].offer.guests + " гостей";
-  cardElement.querySelector(".popup__text--time").textContent = "заезд после " + ads[i].offer.checkin + ", выезд до " + ads[i].offer.checkout;
-  cardElement.querySelector(".popup__features").textContent = String(ads[i].offer.features);
-  cardElement.querySelector(".popup__description").textContent = ads[i].offer.description;
-  // cardElement.querySelector(".popup__photos").appendChild(img).src = ads[i].offer.photos; не совсем понял, что и куда конкретно нужно вставлять - поправлю в следующей итерации
-  cardElement.querySelector(".popup__avatar").src = ads[i].author.avatar;
-  fragmentTwo.appendChild(cardElement);
-}
-
 mapPins.appendChild(fragmentTwo);
