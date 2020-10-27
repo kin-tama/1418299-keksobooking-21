@@ -38,7 +38,7 @@ let getrandomArrey = function (array) {
   return randomArrey;
 };
 
-// объявим функцию, которая будет создавать массив рандомных предложений. При вызове функции getNewOffer cjp
+// объявляем функцию, которая будет создавать предложения
 let adv = 0;
 
 let getNewAdv = function (number) {
@@ -69,7 +69,7 @@ let getNewAdv = function (number) {
   return adv;
 };
 
-// Найдем объект "карта" и уберем у него класс "map--faded"
+// Находим объект "карта" и убираем у него класс "map--faded"
 const map = document.querySelector(".map");
 map.classList.remove("map--faded");
 
