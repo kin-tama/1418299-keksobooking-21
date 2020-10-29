@@ -17,8 +17,8 @@ const XMIN = 0;
 const XMAX = 750;
 const YMIN = 130;
 const YMAX = 630;
-const XOFFSET = 40;
-const YOFFSET = 20;
+const XOFFSET = 20;
+const YOFFSET = 22;
 
 
 // функция-рандомайзер
@@ -39,10 +39,9 @@ let getrandomArrey = function (array) {
 };
 
 // объявляем функцию, которая будет создавать предложения
-let adv = 0;
 
 let getNewAdv = function (number) {
-  adv = {
+  return {
     author: {
       avatar: AUTHORS[number]
     },
@@ -66,15 +65,14 @@ let getNewAdv = function (number) {
       y: getRandomInteger(YMIN, YMAX)
     }
   };
-  return adv;
+
 };
 
 // Находим объект "карта" и убираем у него класс "map--faded"
 const map = document.querySelector(".map");
-map.classList.remove("map--faded");
 
 // находим куда вставлять
-const mapPins = document.querySelector(".map__pins");
+// const mapPins = document.querySelector(".map__pins");
 
 // находим что вставлять
 const pinTemplate = document.querySelector("#pin").content.querySelector('.map__pin');
@@ -128,9 +126,97 @@ let fragment = document.createDocumentFragment();
 
 for (let i = 0; i < ADS_NUMBER; i++) {
   getNewAdv(i);
-  createPin(adv);
-  createCard(adv);
+  createPin(getNewAdv());
+  createCard(getNewAdv());
 }
 
-mapPins.appendChild(fragment);
-mapPins.appendChild(fragmentTwo);
+// mapPins.appendChild(fragment);
+// mapPins.appendChild(fragmentTwo);
+
+// заблокируем все интерактивные элементы в форме ввода
+
+const inputs = document.querySelectorAll("input");
+const selects = document.querySelectorAll("select");
+const buttons = document.querySelectorAll("button");
+const textareas = document.querySelectorAll("textarea");
+
+// функция блокировки
+
+const getDisabled = function (arr) {
+  for (let element of arr) {
+    if (!element.classList.contains("map__pin--main")) {
+      element.disabled = true;
+    }
+  }
+};
+
+// заблокируем интерактивные элементы
+getDisabled(inputs);
+getDisabled(selects);
+getDisabled(textareas);
+getDisabled(buttons);
+
+// объявим переменную главного пина
+
+const mainPin = document.querySelector(".map__pin--main");
+
+// функция разблокировки
+
+const getEnabled = function (arr) {
+  for (let element of arr) {
+    element.disabled = false;
+  }
+};
+
+// напишем функцию заполнения поля адреса
+
+const addressField = document.querySelector("#address");
+let mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, 3), 10) + XOFFSET);
+let mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, 3), 10) + YOFFSET);
+
+const getAddress = function () {
+  addressField.value = mainPinX + ", " + mainPinY;
+};
+
+// опишем активацию карты и интерактивных эл-тов по событию mousedown
+
+mainPin.addEventListener("click", function (evt) {
+  if (evt.button === 0) {
+    map.classList.remove("map--faded");
+    getEnabled(inputs);
+    getEnabled(selects);
+    getEnabled(textareas);
+    getEnabled(buttons);
+    getAddress();
+  }
+});
+
+// ??? хотел добавить обработчик для Enter, но всё почему-то и так активируется
+
+// Напишем валидатор гостей. Пытался написать как предлагало задание, но пока получилось так:
+
+const roomsNumber = document.querySelector("#room_number");
+const guests = document.querySelector("#capacity");
+
+
+guests.addEventListener("change", function () {
+  if (guests.value < 1) {
+    roomsNumber.value = 100;
+  } else if (guests.value > roomsNumber.value && guests.value > 0) {
+    roomsNumber.value = guests.value;
+  }
+});
+
+roomsNumber.addEventListener("change", function () {
+  if (roomsNumber.value < guests.value && roomsNumber.value < 100) {
+    guests.value = roomsNumber.value;
+  }
+
+  if (roomsNumber.value > 99) {
+    guests.value = 0;
+  }
+
+  if (guests.value < 1 && roomsNumber.value < 100) {
+    guests.value = roomsNumber.value;
+  }
+});
