@@ -19,10 +19,14 @@
 
   getAddress();
 
-  // валидатор гостей и комнат
+  // валидаторы
 
   const roomsNumber = document.querySelector("#room_number");
   const guests = document.querySelector("#capacity");
+  const type = document.querySelector("#type");
+  const price = document.querySelector("#price");
+  const checkIn = document.querySelector("#timein");
+  const checkOut = document.querySelector("#timeout");
 
   const guestsValidator = function () {
     if (guests.value < 1) {
@@ -46,6 +50,24 @@
     }
   };
 
+  const priceValidator = function () {
+    if (type.value === "bungalow") {
+      price.min = 0;
+    }
+
+    if (type.value === "flat") {
+      price.min = 1000;
+    }
+
+    if (type.value === "house") {
+      price.min = 5000;
+    }
+
+    if (type.value === "palace") {
+      price.min = 10000;
+    }
+  };
+
   guests.addEventListener("change", function () {
     guestsValidator();
   });
@@ -54,6 +76,21 @@
     roomsValidator();
   });
 
+  type.addEventListener("change", function () {
+    priceValidator();
+  });
+
+  checkIn.addEventListener("change", function () {
+    if (checkOut.value !== checkIn.value) {
+      checkOut.value = checkIn.value;
+    }
+  });
+
+  checkOut.addEventListener("change", function () {
+    if (checkOut.value !== checkIn.value) {
+      checkIn.value = checkOut.value;
+    }
+  });
 
   window.form = {
     getAddress: getAddress
