@@ -50,6 +50,7 @@
     }
   };
 
+  // Рома, запихни объект в объект - расширь словарь, дополни его минимпльными значениями
   const priceValidator = function () {
     if (type.value === "bungalow") {
       price.min = 0;
@@ -93,7 +94,7 @@
   });
 
   window.form = {
-    getAddress: getAddress
+    getAddress: getAddress,
   };
 
 })();

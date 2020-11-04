@@ -20,9 +20,8 @@
   };
 
   // функция для получения массива с рандомным количеством элементов
-  let randomArrey = [];
   let getrandomArrey = function (arrey) {
-    randomArrey = [];
+    let randomArrey = [];
     for (let i = 0; i < getRandomInteger(1, arrey.length); i++) {
       randomArrey.push(arrey[i]);
     }
@@ -30,6 +29,7 @@
   };
 
   // функция блокировки элемента
+  // перепроверить if (!element.classList.contains("map__pin--main"))
   const disableElement = function (arr) {
     for (let element of arr) {
       if (!element.classList.contains("map__pin--main")) {
@@ -45,40 +45,11 @@
     }
   };
 
-  // генератор предложений
-  let getNewAdv = function (number) {
-    return {
-      author: {
-        avatar: AUTHORS[number]
-      },
-
-      offer: {
-        title: "Уютное гнездышко для молодоженов",
-        address: getRandomInteger(0, 600) + ", " + getRandomInteger(0, 350),
-        price: getRandomInteger(2000, 5000),
-        type: TYPES[getRandomInteger(0, 3)],
-        rooms: getRandomInteger(0, 10),
-        guests: getRandomInteger(0, 20),
-        checkin: TIMES[getRandomInteger(0, 2)],
-        checkout: TIMES[getRandomInteger(0, 2)],
-        features: getrandomArrey(FEATURES),
-        description: "Великолепная квартира-студия в центре Токио. Подходит как туристам, так и бизнесменам. Квартира полностью укомплектована и недавно отремонтирована.",
-        photos: getrandomArrey(PHOTOS)
-      },
-
-      location: {
-        x: getRandomInteger(XMIN, XMAX),
-        y: getRandomInteger(YMIN, YMAX)
-      }
-    };
-  };
-
   window.util = {
     getRandomInteger: getRandomInteger,
     getrandomArrey: getrandomArrey,
     disableElement: disableElement,
     enableElement: enableElement,
-    getNewAdv: getNewAdv
   };
 
 })();

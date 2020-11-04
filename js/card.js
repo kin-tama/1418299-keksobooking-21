@@ -9,12 +9,12 @@
     palace: "Дворец"
   };
 
-  let cardElement = 0;
+  let cardElement;
   let cardTemplate = document.querySelector("#card").content.querySelector(".popup");
+  let popupPhotos;
+  const mapPins = document.querySelector(".map__pins");
   let fragmentTwo = document.createDocumentFragment();
-  let popupPhotos = 0;
 
-  // после разбиения на модули, mapPins.appendChild(fragment) в файле main работать перестало. Временно включил в функцию ниже (36 строка)
   let createCard = function (object) {
     cardElement = cardTemplate.cloneNode(true);
     cardElement.querySelector(".popup__title").textContent = object.offer.title;
@@ -28,8 +28,8 @@
     cardElement.querySelector(".popup__avatar").src = object.author.avatar;
 
     popupPhotos = cardElement.querySelector(".popup__photos");
-    popupPhotos.querySelector(".popup__photo").src = PHOTOS[0];
-    for (let i = 1; i < PHOTOS.length; i++) {
+    popupPhotos.removeChild(popupPhotos.querySelector(".popup__photo"));
+    for (let i = 0; i < PHOTOS.length; i++) {
       let photo = document.createElement("img");
       photo.alt = "Фотография жилья";
       photo.height = 40;
@@ -40,11 +40,21 @@
     }
 
     fragmentTwo.appendChild(cardElement);
-    // mapPins.appendChild(fragmentTwo);
   };
 
+  let createCards = function () {
+    for (let i = 0; i < 8; i++) {
+      createCard(window.data.getNewAdv(i));
+    }
+  };
+
+  createCards()
+
+  let allCards = fragmentTwo.querySelectorAll(".popup");
+
   window.card = {
-    createCard: createCard
+    allCards: allCards,
+    mapPins: mapPins,
   };
 
 })();
