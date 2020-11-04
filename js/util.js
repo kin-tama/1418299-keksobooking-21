@@ -2,17 +2,6 @@
 
 (function () {
 
-  const TYPES = ["palace", "flat", "house", "bungalow"];
-  const TIMES = ["12:00", "13:00", "14:00"];
-  const FEATURES = [" wifi", " dishwasher", " parking", " washer", " elevator", " conditioner"];
-  const AUTHORS = ["img/avatars/user01.png", "img/avatars/user02.png", "img/avatars/user03.png", "img/avatars/user04.png", "img/avatars/user05.png", "img/avatars/user06.png", "img/avatars/user07.png", "img/avatars/user08.png"];
-  const PHOTOS = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
-  const XMIN = 0;
-  const XMAX = 750;
-  const YMIN = 130;
-  const YMAX = 630;
-
-
   // функция-рандомайзер
   const getRandomInteger = function (min, max) {
     let rand = min - 0.5 + Math.random() * (max - min + 1);

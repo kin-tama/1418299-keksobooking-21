@@ -26,12 +26,12 @@
   const createPins = function (amount, object) {
     minorPins = [];
     for (let i = 0; i < amount; i++) {
-      createPin(object(i))
-    };
+      createPin(object(i));
+    }
 
     allPins = document.querySelectorAll(".map__pin");
 
-    for(let i = 0; i < (allPins.length - 1); i++) {
+    for (let i = 0; i < (allPins.length - 1); i++) {
       minorPins[i] = allPins[i + 1];
     }
   };
@@ -52,9 +52,9 @@
 
   const onClickAndEscClosePopUp = function () {
     let popUpClose = document.querySelector(".popup__close");
-      if (popUpClose) {
-      popUpClose.addEventListener("click", closePopUp, {once: true})
-      document.addEventListener("keydown", onPopUpEscPress, {once: true})
+    if (popUpClose) {
+      popUpClose.addEventListener("click", closePopUp, {once: true});
+      document.addEventListener("keydown", onPopUpEscPress, {once: true});
     }
   };
 
@@ -67,7 +67,7 @@
       }
       window.card.mapPins.appendChild(card);
       onClickAndEscClosePopUp();
-    })
+    });
   };
 
   let showCard = function () {

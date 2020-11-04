@@ -17,8 +17,6 @@ window.util.disableElement(selects);
 window.util.disableElement(textareas);
 window.util.disableElement(buttons);
 
-let mapPins = document.querySelectorAll(".map__pin");
-
 // функции можно передавать сразу несколько параметров, синтаксис ES6 ...
 
 mainPin.addEventListener("click", function (evt) {
@@ -35,4 +33,3 @@ mainPin.addEventListener("click", function (evt) {
     window.move.movePin();
   }
 }, {once: true});
-

@@ -39,10 +39,7 @@
     };
   };
 
-window.data = {
-  getNewAdv: getNewAdv,
-}
+  window.data = {
+    getNewAdv: getNewAdv,
+  };
 })();
-
-
-

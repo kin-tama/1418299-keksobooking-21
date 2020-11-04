@@ -48,7 +48,7 @@
     }
   };
 
-  createCards()
+  createCards();
 
   let allCards = fragmentTwo.querySelectorAll(".popup");
 
