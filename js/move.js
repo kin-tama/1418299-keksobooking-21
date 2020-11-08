@@ -3,8 +3,11 @@
 (function () {
   const MINY = 130;
   const MAXY = 630;
+  const MINX = 20;
+  const MAXX = 1100;
+
   const X_OFFSET = 20;
-  const Y_OFFSET = 40;
+  const Y_OFFSET = 66;
   const mainPin = document.querySelector(".map__pin--main");
 
   const changeAddress = function () {
@@ -38,12 +41,28 @@
         mainPin.style.left = mainPin.offsetLeft - shift.shiftX + "px";
         mainPin.style.top = mainPin.offsetTop - shift.shiftY + "px";
 
-        if ((startCoords.y - shift.shiftY) > MAXY) {
+        let currentYCoordinates = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10));
+        let currentXCoordinates = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10));
+
+        if (currentYCoordinates > MAXY) {
           mainPin.style.top = MAXY - Y_OFFSET + "px";
         }
 
         if ((startCoords.y - shift.shiftY) < MINY) {
           mainPin.style.top = MINY - Y_OFFSET + "px";
+        }
+
+        // Если ограничить Y кодом ниже, Y прилипает к верхней границе. По идее, в остальных случаях должно было бы быть так же, но почему-то - нет
+        // if (currentYCoordinates < MINY) {
+        //   mainPin.style.top = MINY - Y_OFFSET + "px";
+        // }
+
+        if (currentXCoordinates > MAXX) {
+          mainPin.style.left = MAXX - X_OFFSET + "px";
+        }
+
+        if (currentXCoordinates < MINX) {
+          mainPin.style.left = MINX - X_OFFSET + "px";
         }
 
         changeAddress();
@@ -60,7 +79,9 @@
   };
 
   window.move = {
-    movePin: movePin
+    movePin: movePin,
+    mainPin: mainPin,
+    changeAddress: changeAddress,
   };
 
 })();

@@ -1,9 +1,5 @@
 "use strict";
 
-const ADS_NUMBER = 8;
-
-// блокировка-разблокировка
-
 const inputs = document.querySelectorAll("input");
 const selects = document.querySelectorAll("select");
 const buttons = document.querySelectorAll("button");
@@ -17,8 +13,6 @@ window.util.disableElement(selects);
 window.util.disableElement(textareas);
 window.util.disableElement(buttons);
 
-// функции можно передавать сразу несколько параметров, синтаксис ES6 ...
-
 mainPin.addEventListener("click", function (evt) {
   if (evt.button === 0) {
     map.classList.remove("map--faded");
@@ -27,9 +21,13 @@ mainPin.addEventListener("click", function (evt) {
     window.util.enableElement(selects);
     window.util.enableElement(textareas);
     window.util.enableElement(buttons);
-    window.pin.createPins(ADS_NUMBER, window.data.getNewAdv);
+    window.pin.getPinsFromServer();
+    window.pin.getCardFromServer();
+    window.pin.onClickAndEscClosePopUp();
     window.form.getAddress();
-    window.pin.showCard();
+    window.form.listenToTheFormSubmit();
+    window.form.listenToReset();
     window.move.movePin();
+    window.filter.getFilters();
   }
 }, {once: true});

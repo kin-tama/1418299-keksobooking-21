@@ -1,7 +1,6 @@
 "use strict";
 
 (function () {
-  const PHOTOS = ["http://o0.github.io/assets/images/tokyo/hotel1.jpg", "http://o0.github.io/assets/images/tokyo/hotel2.jpg", "http://o0.github.io/assets/images/tokyo/hotel3.jpg"];
   const apartsList = {
     flat: "Квартира",
     bungalow: "Бунгало",
@@ -29,32 +28,26 @@
 
     popupPhotos = cardElement.querySelector(".popup__photos");
     popupPhotos.removeChild(popupPhotos.querySelector(".popup__photo"));
-    for (let i = 0; i < PHOTOS.length; i++) {
+    let photos = object.offer.photos;
+    for (let i = 0; i < photos.length; i++) {
       let photo = document.createElement("img");
       photo.alt = "Фотография жилья";
       photo.height = 40;
       photo.width = 40;
       photo.classList.add("popup__photo");
-      photo.src = PHOTOS[i];
+      photo.src = photos[i];
       popupPhotos.appendChild(photo);
     }
 
     fragmentTwo.appendChild(cardElement);
+    mapPins.appendChild(fragmentTwo);
   };
 
-  let createCards = function () {
-    for (let i = 0; i < 8; i++) {
-      createCard(window.data.getNewAdv(i));
-    }
-  };
-
-  createCards();
-
-  let allCards = fragmentTwo.querySelectorAll(".popup");
 
   window.card = {
-    allCards: allCards,
+    createCard: createCard,
     mapPins: mapPins,
+    apartsList: apartsList,
   };
 
 })();
