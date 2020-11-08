@@ -91,7 +91,7 @@
 
   const createPins = function (object) {
     minorPins = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < object.length; i++) {
       createPin(object[i]);
     }
     allPins = document.querySelectorAll(".map__pin");
