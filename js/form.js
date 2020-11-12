@@ -170,14 +170,14 @@
     }
     window.filter.getFiltersAsTheyWere();
 
-    let minorPins = document.querySelectorAll(".map__pin:not(.map__pin--main)")
+    let minorPins = document.querySelectorAll(".map__pin:not(.map__pin--main)");
 
     for (let pin of minorPins) {
       pin.remove();
     }
 
     if (document.querySelector(".popup")) {
-      window.pin.closePopUp();
+      window.map.closePopUp();
     }
 
     window.move.mainPin.style.left = "570px";

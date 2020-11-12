@@ -19,9 +19,13 @@
 
   const disableElement = function (arr) {
     for (let element of arr) {
-        element.disabled = true;
+      element.disabled = true;
     }
   };
+
+  // if (document.querySelector(".popup")) {
+  //   window.pin.closePopUp();
+  // }
 
   const enableElement = function (arr) {
     for (let element of arr) {

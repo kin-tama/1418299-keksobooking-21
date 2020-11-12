@@ -28,23 +28,23 @@
     let oldCard = document.querySelector(".popup");
     if (window.card.mapPins.contains(oldCard)) {
       window.card.mapPins.removeChild(oldCard);
-      }
+    }
     window.card.create(element);
     onClickAndEscClosePopUp();
-  }
+  };
 
   const createPins = function (object) {
-      for (let i = 0; i < object.length; i++) {
-        let fragment = document.createDocumentFragment();
-        fragment.appendChild(window.pin.create(object[i], i));
-        window.card.mapPins.appendChild(fragment);
+    for (let i = 0; i < object.length; i++) {
+      let fragment = document.createDocumentFragment();
+      fragment.appendChild(window.pin.create(object[i], i));
+      window.card.mapPins.appendChild(fragment);
 
-        let currentPin = document.querySelector(".pin__" + i);
-        currentPin.addEventListener("click", function () {
-          showCard(object[i]);
-      })
+      let currentPin = document.querySelector(".pin__" + i);
+      currentPin.addEventListener("click", function () {
+        showCard(object[i]);
+      });
       if (i > (MAX_PINS_ON_MAP - 2)) {
-        break
+        break;
       }
     }
   };
