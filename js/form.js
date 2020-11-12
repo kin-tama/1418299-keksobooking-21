@@ -4,8 +4,8 @@
 
   const mainPin = document.querySelector(".map__pin--main");
 
-  const XOFFSET = 20;
-  const YOFFSET = 66;
+  const XOFFSET = 32;
+  const YOFFSET = 87;
   const MIN_BUNGALOW_COST = 0;
   const MIN_FLAT_COST = 1000;
   const MIN_HOUSE_COST = 5000;
@@ -13,11 +13,10 @@
   const PALACE_ROOMS = 100;
   const MIN_NOT_PALACE_GUESTS = 1;
 
-  const addressField = document.querySelector("#address");
-  let mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, 3), 10) + XOFFSET);
-  let mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, 3), 10) + YOFFSET);
-
   const getAddress = function () {
+    const addressField = document.querySelector("#address");
+    let mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10) + XOFFSET);
+    let mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10) + YOFFSET);
     addressField.value = mainPinX + ", " + mainPinY;
   };
 
@@ -39,7 +38,6 @@
   const conditioner = document.querySelector("#feature-conditioner");
   const features = [wifi, dishwasher, parking, washer, elevator, conditioner];
   const description = document.querySelector("#description");
-
 
   const guestsValidator = function () {
     if (guests.value < MIN_NOT_PALACE_GUESTS) {
@@ -166,12 +164,15 @@
     guests.options[2].selected = true;
     description.value = "";
 
+
     for (let feature of features) {
       feature.checked = false;
     }
     window.filter.getFiltersAsTheyWere();
 
-    for (let pin of window.pin.findMinorPins()) {
+    let minorPins = document.querySelectorAll(".map__pin:not(.map__pin--main)")
+
+    for (let pin of minorPins) {
       pin.remove();
     }
 
@@ -181,7 +182,7 @@
 
     window.move.mainPin.style.left = "570px";
     window.move.mainPin.style.top = "375px";
-    window.move.changeAddress();
+    getAddress();
   };
 
   let submitHandler = function (evt) {
@@ -208,10 +209,8 @@
 
   window.form = {
     getAddress: getAddress,
-    clearForm: clearForm,
     listenToTheFormSubmit: listenToTheFormSubmit,
     listenToReset: listenToReset
-
   };
 
 })();

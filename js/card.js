@@ -14,7 +14,7 @@
   const mapPins = document.querySelector(".map__pins");
   let fragmentTwo = document.createDocumentFragment();
 
-  let createCard = function (object) {
+  let create = function (object) {
     cardElement = cardTemplate.cloneNode(true);
     cardElement.querySelector(".popup__title").textContent = object.offer.title;
     cardElement.querySelector(".popup__text--address").textContent = object.offer.address;
@@ -45,9 +45,8 @@
 
 
   window.card = {
-    createCard: createCard,
-    mapPins: mapPins,
-    apartsList: apartsList,
+    create: create,
+    mapPins: mapPins
   };
 
 })();

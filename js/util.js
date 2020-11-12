@@ -17,21 +17,29 @@
     return randomArrey;
   };
 
-  // функция блокировки элемента
-  // перепроверить if (!element.classList.contains("map__pin--main"))
   const disableElement = function (arr) {
     for (let element of arr) {
-      if (!element.classList.contains("map__pin--main")) {
         element.disabled = true;
-      }
     }
   };
 
-  // функция разблокировки элемента
   const enableElement = function (arr) {
     for (let element of arr) {
       element.disabled = false;
     }
+  };
+
+  // error
+
+  let errorHandler = function (errorMessage) {
+    let errorChild = document.createElement("div");
+    errorChild.style = "z-index: 100; margin: auto; text-align: center; background-color: yellow; height: 200px; padding: 60px";
+    errorChild.style.position = "absolute";
+    errorChild.style.left = 0;
+    errorChild.style.right = 0;
+    errorChild.style.fontSize = "50px";
+    errorChild.textContent = errorMessage;
+    document.body.insertAdjacentElement("afterbegin", errorChild);
   };
 
   window.util = {
@@ -39,6 +47,7 @@
     getrandomArrey: getrandomArrey,
     disableElement: disableElement,
     enableElement: enableElement,
+    errorHandler: errorHandler
   };
 
 })();

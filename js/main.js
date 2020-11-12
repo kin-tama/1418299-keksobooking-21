@@ -2,7 +2,7 @@
 
 const inputs = document.querySelectorAll("input");
 const selects = document.querySelectorAll("select");
-const buttons = document.querySelectorAll("button");
+const buttons = document.querySelectorAll("button:not(.map__pin--main)");
 const textareas = document.querySelectorAll("textarea");
 const map = document.querySelector(".map");
 const mainPin = document.querySelector(".map__pin--main");
@@ -21,13 +21,12 @@ mainPin.addEventListener("click", function (evt) {
     window.util.enableElement(selects);
     window.util.enableElement(textareas);
     window.util.enableElement(buttons);
-    window.pin.getPinsFromServer();
-    window.pin.getCardFromServer();
-    window.pin.onClickAndEscClosePopUp();
+    window.map.getPinsFromServer();
+    window.map.onClickAndEscClosePopUp();
+    window.move.pin();
     window.form.getAddress();
     window.form.listenToTheFormSubmit();
     window.form.listenToReset();
-    window.move.movePin();
     window.filter.getFilters();
   }
 }, {once: true});
