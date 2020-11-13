@@ -8,12 +8,13 @@
 
   window.download = function (onSuccess, onError) {
 
-    let xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.responseType = "json";
 
     xhr.addEventListener("load", function () {
       if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
+        return (xhr.response);
       } else {
         onError("Никаких кексов сегодня. Статус ответа: " + xhr.status + " " + xhr.statusText);
       }

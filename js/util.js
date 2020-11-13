@@ -2,40 +2,19 @@
 
 (function () {
 
-  // функция-рандомайзер
-  const getRandomInteger = function (min, max) {
-    let rand = min - 0.5 + Math.random() * (max - min + 1);
-    return Math.round(rand);
-  };
-
-  // функция для получения массива с рандомным количеством элементов
-  let getrandomArrey = function (arrey) {
-    let randomArrey = [];
-    for (let i = 0; i < getRandomInteger(1, arrey.length); i++) {
-      randomArrey.push(arrey[i]);
-    }
-    return randomArrey;
-  };
-
   const disableElement = function (arr) {
-    for (let element of arr) {
+    arr.forEach(element => {
       element.disabled = true;
-    }
+    });
   };
-
-  // if (document.querySelector(".popup")) {
-  //   window.pin.closePopUp();
-  // }
 
   const enableElement = function (arr) {
-    for (let element of arr) {
+    arr.forEach(element => {
       element.disabled = false;
-    }
+    });
   };
 
-  // error
-
-  let errorHandler = function (errorMessage) {
+  const errorHandler = function (errorMessage) {
     let errorChild = document.createElement("div");
     errorChild.style = "z-index: 100; margin: auto; text-align: center; background-color: yellow; height: 200px; padding: 60px";
     errorChild.style.position = "absolute";
@@ -47,8 +26,6 @@
   };
 
   window.util = {
-    getRandomInteger: getRandomInteger,
-    getrandomArrey: getrandomArrey,
     disableElement: disableElement,
     enableElement: enableElement,
     errorHandler: errorHandler

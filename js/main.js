@@ -21,12 +21,12 @@ mainPin.addEventListener("click", function (evt) {
     window.util.enableElement(selects);
     window.util.enableElement(textareas);
     window.util.enableElement(buttons);
-    window.map.getPinsFromServer();
-    window.map.onClickAndEscClosePopUp();
+    window.filter.runFiltersAndPins(window.data.allOffers);
+    window.filter.onClickGetFilters()
+    window.card.onClickAndEscClosePopUp();
     window.move.pin();
     window.form.getAddress();
     window.form.listenToTheFormSubmit();
     window.form.listenToReset();
-    window.filter.getFilters();
   }
 }, {once: true});

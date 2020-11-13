@@ -5,7 +5,6 @@
   const MAXY = 543;
   const MINX = -32;
   const MAXX = 1168;
-
   const mainPin = document.querySelector(".map__pin--main");
 
   const pin = function () {
@@ -17,9 +16,9 @@
         y: evt.clientY
       };
 
-      let onMouseMove = function (moveEvt) {
+      const onMouseMove = function (moveEvt) {
 
-        let shift = {
+        const shift = {
           shiftX: startCoords.x - moveEvt.clientX,
           shiftY: startCoords.y - moveEvt.clientY
         };
@@ -32,8 +31,8 @@
         mainPin.style.left = mainPin.offsetLeft - shift.shiftX + "px";
         mainPin.style.top = mainPin.offsetTop - shift.shiftY + "px";
 
-        let currentYCoordinates = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10));
-        let currentXCoordinates = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10));
+        const currentYCoordinates = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10));
+        const currentXCoordinates = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10));
 
         if (currentYCoordinates > MAXY) {
           mainPin.style.top = MAXY + "px";
@@ -54,7 +53,7 @@
         window.form.getAddress();
       };
 
-      let onMouseup = function () {
+      const onMouseup = function () {
         document.removeEventListener("mousemove", onMouseMove);
         document.removeEventListener("mouseup", onMouseup);
       };

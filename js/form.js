@@ -3,6 +3,7 @@
 (function () {
 
   const mainPin = document.querySelector(".map__pin--main");
+  const main = document.querySelector("main");
 
   const XOFFSET = 32;
   const YOFFSET = 87;
@@ -12,15 +13,6 @@
   const MIN_PALACE_COST = 10000;
   const PALACE_ROOMS = 100;
   const MIN_NOT_PALACE_GUESTS = 1;
-
-  const getAddress = function () {
-    const addressField = document.querySelector("#address");
-    let mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10) + XOFFSET);
-    let mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10) + YOFFSET);
-    addressField.value = mainPinX + ", " + mainPinY;
-  };
-
-  getAddress();
 
   const roomsNumber = document.querySelector("#room_number");
   const guests = document.querySelector("#capacity");
@@ -39,6 +31,15 @@
   const features = [wifi, dishwasher, parking, washer, elevator, conditioner];
   const description = document.querySelector("#description");
 
+  const getAddress = function () {
+    const addressField = document.querySelector("#address");
+    const mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10) + XOFFSET);
+    const mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10) + YOFFSET);
+    addressField.value = mainPinX + ", " + mainPinY;
+  };
+
+  getAddress();
+
   const guestsValidator = function () {
     if (guests.value < MIN_NOT_PALACE_GUESTS) {
       roomsNumber.value = PALACE_ROOMS;
@@ -48,6 +49,7 @@
   };
 
   const roomsValidator = function () {
+
     if (roomsNumber.value < guests.value && roomsNumber.value < 100) {
       guests.value = roomsNumber.value;
     }
@@ -61,7 +63,6 @@
     }
   };
 
-  //  запихни объект в объект - расширь словарь, дополни его минимпльными значениями
   const priceValidator = function () {
     if (type.value === "bungalow") {
       price.min = MIN_BUNGALOW_COST;
@@ -108,31 +109,43 @@
     }
   });
 
-  let showSuccessMessage = function () {
-    let main = document.querySelector("main");
+  const closeMessage = function () {
+    const messageSucess = document.querySelector(".success")
+    const messageError = document.querySelector(".error")
+
+    if (messageSucess) {
+      main.removeChild(messageSucess);
+    }
+    if (messageError) {
+       main.removeChild(messageError);
+    }
+    main.removeEventListener("keydown", onEscCloseMessage)
+  }
+
+  const onEscCloseMessage = function (evt) {
+    if (evt.key === "Escape") {
+      evt.preventDefault();
+      closeMessage();
+    }
+  }
+
+  const onClickAndEscCloseMessage = function () {
+    main.addEventListener("click", closeMessage);
+    main.addEventListener("keydown", onEscCloseMessage);
+  }
+
+  const showSuccessMessage = function () {
     const fragment = document.createDocumentFragment();
     const successMessageTemplate = document.querySelector("#success").content.querySelector(".success");
 
-    let successMessage = successMessageTemplate.cloneNode(true);
+    const successMessage = successMessageTemplate.cloneNode(true);
     fragment.appendChild(successMessage);
     main.appendChild(fragment);
 
-    document.addEventListener("click", function () {
-      let message = main.querySelector(".success");
-      main.removeChild(message);
-    }, {once: true});
-
-    document.addEventListener("keydown", function (evt) {
-      if (evt.key === "Escape") {
-        evt.preventDefault();
-        let message = main.querySelector(".success");
-        main.removeChild(message);
-      }
-    }, {once: true});
+    onClickAndEscCloseMessage();
   };
 
   let showErrorMessage = function () {
-    let main = document.querySelector("main");
     const fragment = document.createDocumentFragment();
     const errorMessageTemplate = document.querySelector("#error").content.querySelector(".error");
 
@@ -140,18 +153,13 @@
     fragment.appendChild(errorMessage);
     main.appendChild(fragment);
 
-    document.addEventListener("click", function () {
-      let message = main.querySelector(".error");
-      main.removeChild(message);
-    }, {once: true});
+    onClickAndEscCloseMessage();
+  };
 
-    document.addEventListener("keydown", function (evt) {
-      if (evt.key === "Escape") {
-        evt.preventDefault();
-        let message = main.querySelector(".error");
-        main.removeChild(message);
-      }
-    }, {once: true});
+  const resetFeaturesInTheForm = function() {
+    features.forEach(feature => {
+      feature.checked = false;
+    })
   };
 
   const clearForm = function () {
@@ -164,17 +172,9 @@
     guests.options[2].selected = true;
     description.value = "";
 
-
-    for (let feature of features) {
-      feature.checked = false;
-    }
-    window.filter.getFiltersAsTheyWere();
-
-    let minorPins = document.querySelectorAll(".map__pin:not(.map__pin--main)");
-
-    for (let pin of minorPins) {
-      pin.remove();
-    }
+    window.filter.resetFilters();
+    resetFeaturesInTheForm();
+    window.pin.cleanAll();
 
     if (document.querySelector(".popup")) {
       window.map.closePopUp();
@@ -198,19 +198,19 @@
   };
 
   let listenToTheFormSubmit = function () {
-    form.addEventListener("submit", submitHandler, {once: true});
+    form.addEventListener("submit", submitHandler);
   };
 
 
   const resetButton = document.querySelector(".ad-form__reset");
   let listenToReset = function () {
-    resetButton.addEventListener("click", clearForm, {once: true});
+    resetButton.addEventListener("click", clearForm);
   };
 
   window.form = {
     getAddress: getAddress,
     listenToTheFormSubmit: listenToTheFormSubmit,
-    listenToReset: listenToReset
+    listenToReset: listenToReset,
   };
 
 })();
