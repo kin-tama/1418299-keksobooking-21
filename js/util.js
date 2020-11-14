@@ -3,13 +3,13 @@
 (function () {
 
   const disableElement = function (arr) {
-    arr.forEach(element => {
+    arr.forEach((element) => {
       element.disabled = true;
     });
   };
 
   const enableElement = function (arr) {
-    arr.forEach(element => {
+    arr.forEach((element) => {
       element.disabled = false;
     });
   };

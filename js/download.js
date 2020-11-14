@@ -12,12 +12,11 @@
     xhr.responseType = "json";
 
     xhr.addEventListener("load", function () {
-      if (xhr.status === StatusCode.OK) {
-        onSuccess(xhr.response);
-        return (xhr.response);
-      } else {
+      if (xhr.status !== StatusCode.OK) {
         onError("Никаких кексов сегодня. Статус ответа: " + xhr.status + " " + xhr.statusText);
       }
+      onSuccess(xhr.response);
+      return (xhr.response);
     });
 
     xhr.addEventListener("error", function () {

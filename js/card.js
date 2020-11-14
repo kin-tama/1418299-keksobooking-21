@@ -44,7 +44,7 @@
 
   const closePopUp = function () {
     const openedCard = document.querySelector(".popup");
-      if (openedCard) {
+    if (openedCard) {
       mapPins.removeChild(openedCard);
       document.removeEventListener("keydown", onPopUpEscPress);
     }

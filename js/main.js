@@ -22,7 +22,7 @@ mainPin.addEventListener("click", function (evt) {
     window.util.enableElement(textareas);
     window.util.enableElement(buttons);
     window.filter.runFiltersAndPins(window.data.allOffers);
-    window.filter.onClickGetFilters()
+    window.filter.onClickGetFilters();
     window.card.onClickAndEscClosePopUp();
     window.move.pin();
     window.form.getAddress();

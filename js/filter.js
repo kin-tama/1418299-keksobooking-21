@@ -33,18 +33,18 @@
   ];
 
   const filterValues = {
-    any: [0, 1000000000],
-    low: [0, 10000],
+    any: [0, 10000000000],
+    low: [0, 9999],
     middle: [10000, 49999],
     high: [50000, 1000000]
   };
 
   const compareElementToTheFilterValue = function (filterName, element, valueType) {
-    return (filterName.value === element.offer[valueType].toString() || filterName.value === "any")
+    return (filterName.value === element.offer[valueType].toString() || filterName.value === "any");
   };
 
   const comparePriceToTheFilter = function (element) {
-    return ((element.offer.price > filterValues[priceFilter.value][0]) && (element.offer.price < filterValues[priceFilter.value][1]))
+    return ((element.offer.price > filterValues[priceFilter.value][0]) && (element.offer.price < filterValues[priceFilter.value][1]));
   };
 
   const compareFeaturesToAllCheckboxes = function (element, filtersArray) {
@@ -54,7 +54,7 @@
         check = true;
       } else {
         check = false;
-        break
+        break;
       }
     }
     return check;
@@ -70,7 +70,7 @@
     for (let i = 0; i < object.length; i++) {
       if (!(!compareElementToTheFilterValue(typeFilter, object[i], "type") || !comparePriceToTheFilter(object[i]) || !compareElementToTheFilterValue(roomsFilter, object[i], "rooms") || !compareElementToTheFilterValue(guestsFilter, object[i], "guests") || !compareFeaturesToAllCheckboxes(object[i], filterFeatures))) {
         fragment.appendChild(window.pin.create(object[i], i));
-        counter ++;
+        counter++;
       }
 
       if (counter === MAX_PINS_ON_MAP) {
@@ -90,13 +90,13 @@
   };
 
   const resetFilters = function () {
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       filter.options[0].selected = true;
-    })
+    });
 
-    filterFeatures.forEach(filterFeature => {
+    filterFeatures.forEach((filterFeature) => {
       filterFeature.checked = false;
-    })
+    });
   };
 
   window.filter = {

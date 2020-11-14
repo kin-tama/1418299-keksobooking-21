@@ -11,16 +11,16 @@
     pinElement.querySelector("img").alt = object.offer.title;
     pinElement.classList.add("pin__" + index);
     pinElement.addEventListener("click", function () {
-    window.card.show(object);
+      window.card.show(object);
     });
     return pinElement;
   };
 
   const cleanAll = function () {
     const minorPins = document.querySelectorAll(".map__pin:not(.map__pin--main)");
-    minorPins.forEach(pin => {
+    minorPins.forEach((pin) => {
       pin.remove();
-    })
+    });
   };
 
   window.pin = {

@@ -110,29 +110,29 @@
   });
 
   const closeMessage = function () {
-    const messageSucess = document.querySelector(".success")
-    const messageError = document.querySelector(".error")
+    const messageSucess = document.querySelector(".success");
+    const messageError = document.querySelector(".error");
 
     if (messageSucess) {
       main.removeChild(messageSucess);
     }
     if (messageError) {
-       main.removeChild(messageError);
+      main.removeChild(messageError);
     }
-    main.removeEventListener("keydown", onEscCloseMessage)
-  }
+    main.removeEventListener("keydown", onEscCloseMessage);
+  };
 
   const onEscCloseMessage = function (evt) {
     if (evt.key === "Escape") {
       evt.preventDefault();
       closeMessage();
     }
-  }
+  };
 
   const onClickAndEscCloseMessage = function () {
     main.addEventListener("click", closeMessage);
     main.addEventListener("keydown", onEscCloseMessage);
-  }
+  };
 
   const showSuccessMessage = function () {
     const fragment = document.createDocumentFragment();
@@ -156,10 +156,10 @@
     onClickAndEscCloseMessage();
   };
 
-  const resetFeaturesInTheForm = function() {
-    features.forEach(feature => {
+  const resetFeaturesInTheForm = function () {
+    features.forEach((feature) => {
       feature.checked = false;
-    })
+    });
   };
 
   const clearForm = function () {
@@ -177,7 +177,7 @@
     window.pin.cleanAll();
 
     if (document.querySelector(".popup")) {
-      window.map.closePopUp();
+      window.card.closePopUp();
     }
 
     window.move.mainPin.style.left = "570px";
