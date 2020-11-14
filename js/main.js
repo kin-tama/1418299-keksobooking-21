@@ -13,7 +13,7 @@ window.util.disableElement(selects);
 window.util.disableElement(textareas);
 window.util.disableElement(buttons);
 
-mainPin.addEventListener("click", function (evt) {
+const formActivator = function (evt) {
   if (evt.button === 0) {
     map.classList.remove("map--faded");
     adForm.classList.remove("ad-form--disabled");
@@ -24,9 +24,17 @@ mainPin.addEventListener("click", function (evt) {
     window.filter.runFiltersAndPins(window.data.allOffers);
     window.filter.onClickGetFilters();
     window.card.onClickAndEscClosePopUp();
-    window.move.pin();
+    window.move.onClickMovePin();
     window.form.getAddress();
-    window.form.listenToTheFormSubmit();
-    window.form.listenToReset();
+    window.form.listenToTheFormSubmit(mainPin, formActivator);
+    window.form.listenToReset(mainPin, formActivator);
+    mainPin.removeEventListener("click", formActivator);
   }
-}, {once: true});
+};
+
+const onClickActivateForm = function () {
+  mainPin.addEventListener("click", formActivator);
+};
+
+onClickActivateForm();
+

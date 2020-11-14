@@ -2,6 +2,13 @@
 
 (function () {
 
+  const activatePin = function (clickedPin) {
+    const recentActivePin = document.querySelector(".map__pin--active");
+    if (recentActivePin) {
+      recentActivePin.classList.remove("map__pin--active");
+    }
+    clickedPin.classList.add("map__pin--active");
+  };
 
   const create = function (object, index) {
     const pinTemplate = document.querySelector("#pin").content.querySelector(".map__pin");
@@ -12,6 +19,7 @@
     pinElement.classList.add("pin__" + index);
     pinElement.addEventListener("click", function () {
       window.card.show(object);
+      activatePin(pinElement);
     });
     return pinElement;
   };

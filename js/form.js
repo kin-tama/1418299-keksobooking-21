@@ -31,6 +31,13 @@
   const features = [wifi, dishwasher, parking, washer, elevator, conditioner];
   const description = document.querySelector("#description");
 
+  const map = document.querySelector(".map");
+  const adForm = document.querySelector(".ad-form");
+  const inputs = document.querySelectorAll("input");
+  const selects = document.querySelectorAll("select");
+  const buttons = document.querySelectorAll("button:not(.map__pin--main)");
+  const textareas = document.querySelectorAll("textarea");
+
   const getAddress = function () {
     const addressField = document.querySelector("#address");
     const mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10) + XOFFSET);
@@ -171,6 +178,12 @@
     roomsNumber.options[0].selected = true;
     guests.options[2].selected = true;
     description.value = "";
+    map.classList.add("map--faded");
+    adForm.classList.add("ad-form--disabled");
+    window.util.disableElement(inputs);
+    window.util.disableElement(selects);
+    window.util.disableElement(textareas);
+    window.util.disableElement(buttons);
 
     window.filter.resetFilters();
     resetFeaturesInTheForm();
@@ -183,6 +196,7 @@
     window.move.mainPin.style.left = "570px";
     window.move.mainPin.style.top = "375px";
     getAddress();
+
   };
 
   let submitHandler = function (evt) {
@@ -197,14 +211,19 @@
     evt.preventDefault();
   };
 
-  let listenToTheFormSubmit = function () {
-    form.addEventListener("submit", submitHandler);
+  let listenToTheFormSubmit = function (element, callback) {
+    form.addEventListener("submit", function () {
+      submitHandler();
+      element.addEventListener("click", callback, {once: true});
+    });
   };
 
-
   const resetButton = document.querySelector(".ad-form__reset");
-  let listenToReset = function () {
-    resetButton.addEventListener("click", clearForm);
+  let listenToReset = function (element, callback) {
+    resetButton.addEventListener("click", function () {
+      clearForm();
+      element.addEventListener("click", callback, {once: true});
+    });
   };
 
   window.form = {

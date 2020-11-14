@@ -47,6 +47,8 @@
     if (openedCard) {
       mapPins.removeChild(openedCard);
       document.removeEventListener("keydown", onPopUpEscPress);
+      const activePin = document.querySelector(".map__pin--active");
+      activePin.classList.remove("map__pin--active");
     }
   };
 

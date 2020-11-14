@@ -68,7 +68,7 @@
     let fragment = document.createDocumentFragment();
 
     for (let i = 0; i < object.length; i++) {
-      if (!(!compareElementToTheFilterValue(typeFilter, object[i], "type") || !comparePriceToTheFilter(object[i]) || !compareElementToTheFilterValue(roomsFilter, object[i], "rooms") || !compareElementToTheFilterValue(guestsFilter, object[i], "guests") || !compareFeaturesToAllCheckboxes(object[i], filterFeatures))) {
+      if (!(!object[i].offer || !compareElementToTheFilterValue(typeFilter, object[i], "type") || !comparePriceToTheFilter(object[i]) || !compareElementToTheFilterValue(roomsFilter, object[i], "rooms") || !compareElementToTheFilterValue(guestsFilter, object[i], "guests") || !compareFeaturesToAllCheckboxes(object[i], filterFeatures))) {
         fragment.appendChild(window.pin.create(object[i], i));
         counter++;
       }
