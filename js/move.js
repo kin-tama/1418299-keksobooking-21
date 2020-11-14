@@ -1,11 +1,19 @@
 "use strict";
 
 (function () {
-  const MINY = 103;
-  const MAXY = 543;
-  const MINX = -32;
-  const MAXX = 1168;
   const mainPin = document.querySelector(".map__pin--main");
+  const mainPinHeight = Number(window.getComputedStyle(mainPin).height.slice(0, -2));
+  const mainPinWidth = Number(window.getComputedStyle(mainPin).width.slice(0, -2));
+  const mainPinTailHeight = 22;
+  const maxXAddresCoords = 1200;
+  const minXAddresCoords = 0;
+  const maxYAddresCoords = 630;
+  const minYAddresCoords = 130;
+
+  const MINY = Math.round(minYAddresCoords - mainPinHeight - mainPinTailHeight);
+  const MAXY = Math.round(maxYAddresCoords - mainPinHeight - mainPinTailHeight);
+  const MINX = Math.round(minXAddresCoords - mainPinWidth / 2);
+  const MAXX = Math.round(maxXAddresCoords - mainPinWidth / 2);
 
   const pin = function () {
     mainPin.addEventListener("mousedown", function (evt) {
