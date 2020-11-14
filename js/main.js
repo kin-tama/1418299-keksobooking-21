@@ -26,7 +26,7 @@ const formActivator = function (evt) {
     window.card.onClickAndEscClosePopUp();
     window.move.onClickMovePin();
     window.form.getAddress();
-    window.form.listenToTheFormSubmit(mainPin, formActivator);
+    window.form.onFormSubmit(mainPin, formActivator);
     window.form.listenToReset(mainPin, formActivator);
     mainPin.removeEventListener("click", formActivator);
   }
@@ -37,4 +37,3 @@ const onClickActivateForm = function () {
 };
 
 onClickActivateForm();
-

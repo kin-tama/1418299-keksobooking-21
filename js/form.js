@@ -211,10 +211,11 @@
     evt.preventDefault();
   };
 
-  let listenToTheFormSubmit = function (element, callback) {
-    form.addEventListener("submit", function () {
-      submitHandler();
+  let onFormSubmit = function (element, callback) {
+    form.addEventListener("submit", function (evt) {
+      evt.preventDefault();
       element.addEventListener("click", callback, {once: true});
+      submitHandler();
     });
   };
 
@@ -228,7 +229,7 @@
 
   window.form = {
     getAddress: getAddress,
-    listenToTheFormSubmit: listenToTheFormSubmit,
+    onFormSubmit: onFormSubmit,
     listenToReset: listenToReset,
   };
 
