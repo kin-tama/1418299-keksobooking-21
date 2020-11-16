@@ -31,7 +31,7 @@ const formActivator = (evt) => {
   }
 };
 
-const onClickActivateForm = function () {
+const onClickActivateForm = () => {
   mainPin.addEventListener(`mousedown`, formActivator);
 };
 

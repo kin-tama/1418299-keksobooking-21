@@ -98,31 +98,31 @@
     }
   };
 
-  guests.addEventListener(`change`, function () {
+  guests.addEventListener(`change`, () => {
     validateGuests();
   });
 
-  roomsNumber.addEventListener(`change`, function () {
+  roomsNumber.addEventListener(`change`, () => {
     validateRooms();
   });
 
-  type.addEventListener(`change`, function () {
+  type.addEventListener(`change`, () => {
     validatePrice();
   });
 
-  checkIn.addEventListener(`change`, function () {
+  checkIn.addEventListener(`change`, () => {
     if (checkOut.value !== checkIn.value) {
       checkOut.value = checkIn.value;
     }
   });
 
-  checkOut.addEventListener(`change`, function () {
+  checkOut.addEventListener(`change`, () => {
     if (checkOut.value !== checkIn.value) {
       checkIn.value = checkOut.value;
     }
   });
 
-  const closeMessage = function () {
+  const closeMessage = () => {
     const messageSucess = document.querySelector(`.success`);
     const messageError = document.querySelector(`.error`);
 
@@ -135,19 +135,19 @@
     main.removeEventListener(`keydown`, onEscCloseMessage);
   };
 
-  const onEscCloseMessage = function (evt) {
+  const onEscCloseMessage = (evt) => {
     if (window.util.checkEvtEscKey(evt)) {
       evt.preventDefault();
       closeMessage();
     }
   };
 
-  const onClickAndEscCloseMessage = function () {
+  const onClickAndEscCloseMessage = () => {
     main.addEventListener(`click`, closeMessage);
     main.addEventListener(`keydown`, onEscCloseMessage);
   };
 
-  const showSuccessMessage = function () {
+  const showSuccessMessage = () => {
     const fragment = document.createDocumentFragment();
     const successMessageTemplate = document.querySelector(`#success`).content.querySelector(`.success`);
 
@@ -158,7 +158,7 @@
     onClickAndEscCloseMessage();
   };
 
-  let showErrorMessage = function () {
+  let showErrorMessage = () => {
     const fragment = document.createDocumentFragment();
     const errorMessageTemplate = document.querySelector(`#error`).content.querySelector(`.error`);
 
@@ -169,13 +169,13 @@
     onClickAndEscCloseMessage();
   };
 
-  const resetFeaturesInTheForm = function () {
+  const resetFeaturesInTheForm = () => {
     features.forEach((feature) => {
       feature.checked = false;
     });
   };
 
-  const clearForm = function () {
+  const clearForm = () => {
     title.value = ``;
     type.options[1].selected = true;
     price.value = ``;
@@ -204,9 +204,9 @@
     getAddress();
   };
 
-  let submitHandler = function () {
+  let submitHandler = () => {
     window.upload(new FormData(form),
-        function () {
+        () => {
           form.classList.add(`ad-form--disabled`);
           clearForm();
           showSuccessMessage();
@@ -215,17 +215,17 @@
     );
   };
 
-  let onFormSubmit = function (element, callback) {
+  let onFormSubmit = (element, callback) => {
     form.addEventListener(`submit`, function (evt) {
       evt.preventDefault();
       element.addEventListener(`click`, callback, {once: true});
       submitHandler();
-    });
+    }, {once: true});
   };
 
   const resetButton = document.querySelector(`.ad-form__reset`);
-  let listenToReset = function (element, callback) {
-    resetButton.addEventListener(`click`, function () {
+  let listenToReset = (element, callback) => {
+    resetButton.addEventListener(`click`, () => {
       clearForm();
       element.addEventListener(`click`, callback, {once: true});
     });
