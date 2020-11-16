@@ -1,7 +1,7 @@
 "use strict";
 
 (function () {
-  const mainPin = document.querySelector(".map__pin--main");
+  const mainPin = document.querySelector(`.map__pin--main`);
   const mainPinHeight = Number(window.getComputedStyle(mainPin).height.slice(0, -2));
   const mainPinWidth = Number(window.getComputedStyle(mainPin).width.slice(0, -2));
   const mainPinTailHeight = 22;
@@ -15,7 +15,7 @@
   const MINX = Math.round(minXAddresCoords - mainPinWidth / 2);
   const MAXX = Math.round(maxXAddresCoords - mainPinWidth / 2);
 
-  let movePin = function (evt) {
+  let Pin = (evt) => {
     evt.preventDefault();
 
     let startCoords = {
@@ -23,7 +23,7 @@
       y: evt.clientY
     };
 
-    const onMouseMove = function (moveEvt) {
+    const onMouseMove = (moveEvt) => {
 
       const shift = {
         shiftX: startCoords.x - moveEvt.clientX,
@@ -35,48 +35,48 @@
         y: moveEvt.clientY
       };
 
-      mainPin.style.left = mainPin.offsetLeft - shift.shiftX + "px";
-      mainPin.style.top = mainPin.offsetTop - shift.shiftY + "px";
+      mainPin.style.left = mainPin.offsetLeft - shift.shiftX + `px`;
+      mainPin.style.top = mainPin.offsetTop - shift.shiftY + `px`;
 
       const currentYCoordinates = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10));
       const currentXCoordinates = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10));
 
       if (currentYCoordinates > MAXY) {
-        mainPin.style.top = MAXY + "px";
+        mainPin.style.top = MAXY + `px`;
       }
 
       if (currentYCoordinates < MINY) {
-        mainPin.style.top = MINY + "px";
+        mainPin.style.top = MINY + `px`;
       }
 
       if (currentXCoordinates > MAXX) {
-        mainPin.style.left = MAXX + "px";
+        mainPin.style.left = MAXX + `px`;
       }
 
       if (currentXCoordinates < MINX) {
-        mainPin.style.left = MINX + "px";
+        mainPin.style.left = MINX + `px`;
       }
 
       window.form.getAddress();
     };
 
-    const onMouseup = function () {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseup);
+    const onMouseup = () => {
+      document.removeEventListener(`mousemove`, onMouseMove);
+      document.removeEventListener(`mouseup`, onMouseup);
     };
 
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseup);
+    document.addEventListener(`mousemove`, onMouseMove);
+    document.addEventListener(`mouseup`, onMouseup);
   };
 
-  const onClickMovePin = function () {
-    mainPin.addEventListener("mousedown", movePin);
+  const onClickPin = () => {
+    mainPin.addEventListener(`mousedown`, Pin);
   };
 
   window.move = {
-    movePin: movePin,
-    onClickMovePin: onClickMovePin,
-    mainPin: mainPin
+    Pin,
+    onClickPin,
+    mainPin
   };
 
 })();

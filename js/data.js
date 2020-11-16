@@ -1,12 +1,13 @@
 "use strict";
 (function () {
 
-  const getAllOffers = function (data) {
-    window.data = {
-      allOffers: data
-    };
+  const getAllOffers = (data) => {
+    window.filter.runFiltersAndPins(data);
+    window.filter.onClickGetFilters(data);
   };
 
-  window.download(getAllOffers, window.util.errorHandler);
+  window.data = {
+    getAllOffers
+  };
 
 })();

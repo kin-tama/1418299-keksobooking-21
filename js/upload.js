@@ -2,17 +2,17 @@
 
 (function () {
 
-  const URL = "https://21.javascript.pages.academy/keksobooking";
+  const URL = `https://21.javascript.pages.academy/keksobooking`;
 
   const StatusCode = {
     OK: 200
   };
 
-  window.upload = function (data, onSuccess, onError) {
+  window.upload = (data, onSuccess, onError) => {
     let xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
+    xhr.responseType = `json`;
 
-    xhr.addEventListener("load", function () {
+    xhr.addEventListener(`load`, () => {
       if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
       } else {
@@ -20,7 +20,7 @@
       }
     });
 
-    xhr.open("POST", URL);
+    xhr.open(`POST`, URL);
     xhr.send(data);
   };
 
