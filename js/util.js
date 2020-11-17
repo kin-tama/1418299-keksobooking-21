@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(()=> {
 
   const disableElement = (arr) => {
     arr.forEach((element) => {

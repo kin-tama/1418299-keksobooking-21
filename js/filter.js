@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(()=> {
 
   const MAX_PINS_ON_MAP = 5;
 
@@ -54,7 +54,7 @@
     return check;
   };
 
-  const runFiltersAndPins = (object) => {
+  const runAll = (object) => {
     window.card.closePopUp();
     window.pin.cleanAll();
 
@@ -75,17 +75,17 @@
   };
 
   const onClickGetFilters = (info) => {
-    filtersForm.addEventListener(`change`, () => runFiltersAndPins(info));
+    filtersForm.addEventListener(`change`, () => runAll(info));
   };
 
-  const resetFilters = () => {
+  const resetAll = () => {
     filters.forEach((filter) => (filter.options[0].selected = true));
     filterFeatures.forEach((filterFeature) => (filterFeature.checked = false));
   };
 
   window.filter = {
-    runFiltersAndPins,
-    resetFilters,
+    runAll,
+    resetAll,
     onClickGetFilters
   };
 

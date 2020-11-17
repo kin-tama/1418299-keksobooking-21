@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(()=> {
 
   const mainPin = document.querySelector(`.map__pin--main`);
   const main = document.querySelector(`main`);
@@ -13,6 +13,8 @@
   const MIN_PALACE_COST = 10000;
   const PALACE_ROOMS = 100;
   const MIN_NOT_PALACE_GUESTS = 1;
+  const START_X_COORDINATES = `570px`;
+  const START_Y_COORDINATES = `375px`;
 
   const roomsNumber = document.querySelector(`#room_number`);
   const guests = document.querySelector(`#capacity`);
@@ -42,7 +44,7 @@
     const addressField = document.querySelector(`#address`);
     const mainPinX = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10) + XOFFSET);
     const mainPinY = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10) + YOFFSET);
-    addressField.value = mainPinX + `, ` + mainPinY;
+    addressField.value = `${mainPinX}, ${mainPinY}`;
   };
 
   getAddress();
@@ -191,7 +193,7 @@
     window.util.disableElement(textareas);
     window.util.disableElement(buttons);
 
-    window.filter.resetFilters();
+    window.filter.resetAll();
     resetFeaturesInTheForm();
 
     if (document.querySelector(`.popup`)) {
@@ -199,8 +201,8 @@
     }
 
     window.pin.cleanAll();
-    window.move.mainPin.style.left = `570px`;
-    window.move.mainPin.style.top = `375px`;
+    window.move.mainPin.style.left = START_X_COORDINATES;
+    window.move.mainPin.style.top = START_Y_COORDINATES;
     getAddress();
   };
 
@@ -215,7 +217,7 @@
     );
   };
 
-  let onFormSubmit = (element, callback) => {
+  let onSubmit = (element, callback) => {
     form.addEventListener(`submit`, function (evt) {
       evt.preventDefault();
       element.addEventListener(`click`, callback, {once: true});
@@ -233,7 +235,7 @@
 
   window.form = {
     getAddress,
-    onFormSubmit,
+    onSubmit,
     listenToReset,
   };
 

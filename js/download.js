@@ -1,5 +1,5 @@
 "use strict";
-(function () {
+(()=> {
   const URL = `https://21.javascript.pages.academy/keksobooking/data`;
   const TIMEOUT_IN_MS = 10000;
   const StatusCode = {
@@ -13,7 +13,7 @@
 
     xhr.addEventListener(`load`, () => {
       if (xhr.status !== StatusCode.OK) {
-        onError(`Никаких кексов сегодня. Статус ответа: ` + xhr.status + ` ` + xhr.statusText);
+        onError(`Никаких кексов сегодня. Статус ответа: ${xhr.status} ${xhr.statusText}`);
       }
       onSuccess(xhr.response);
       return (xhr.response);
@@ -21,7 +21,7 @@
 
     xhr.addEventListener(`error`, () => onError(`Произошла ошибка соединения`));
 
-    xhr.addEventListener(`timeout`, () => onError(`Слишком долго ждать. Запрос не успел выполниться за ` + xhr.timeout + `мс`));
+    xhr.addEventListener(`timeout`, () => onError(`Слишком долго ждать. Запрос не успел выполниться за ${xhr.timeout} мс`));
 
     xhr.timeout = TIMEOUT_IN_MS;
     xhr.open(`GET`, URL);

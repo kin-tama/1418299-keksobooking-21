@@ -25,7 +25,7 @@ const formActivator = (evt) => {
     window.card.onClickAndEscClosePopUp();
     window.move.onClickPin();
     window.form.getAddress();
-    window.form.onFormSubmit(mainPin, formActivator);
+    window.form.onSubmit(mainPin, formActivator);
     window.form.listenToReset(mainPin, formActivator);
     mainPin.removeEventListener(`mousedown`, formActivator);
   }

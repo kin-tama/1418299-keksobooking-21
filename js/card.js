@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(()=> {
   const ApartsTranslation = {
     flat: `Квартира`,
     bungalow: `Бунгало`,
@@ -17,10 +17,10 @@
 
     cardElement.querySelector(`.popup__title`).textContent = object.offer.title;
     cardElement.querySelector(`.popup__text--address`).textContent = object.offer.address;
-    cardElement.querySelector(`.popup__text--price`).textContent = object.offer.price + `₽/ночь`;
+    cardElement.querySelector(`.popup__text--price`).textContent = `${object.offer.price} ₽/ночь`;
     cardElement.querySelector(`.popup__type`).textContent = ApartsTranslation[object.offer.type];
-    cardElement.querySelector(`.popup__text--capacity`).textContent = object.offer.rooms + ` комнаты для ` + object.offer.guests + ` гостей`;
-    cardElement.querySelector(`.popup__text--time`).textContent = `заезд после ` + object.offer.checkin + `, выезд до ` + object.offer.checkout;
+    cardElement.querySelector(`.popup__text--capacity`).textContent = `${object.offer.rooms} комнаты для ${object.offer.guests} гостей`;
+    cardElement.querySelector(`.popup__text--time`).textContent = `заезд после ${object.offer.checkin}, выезд до ${object.offer.checkout}`;
     cardElement.querySelector(`.popup__features`).textContent = String(object.offer.features);
     cardElement.querySelector(`.popup__description`).textContent = object.offer.description;
     cardElement.querySelector(`.popup__avatar`).src = object.author.avatar;

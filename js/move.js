@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(()=> {
   const mainPin = document.querySelector(`.map__pin--main`);
   const mainPinHeight = Number(window.getComputedStyle(mainPin).height.slice(0, -2));
   const mainPinWidth = Number(window.getComputedStyle(mainPin).width.slice(0, -2));
@@ -35,26 +35,26 @@
         y: moveEvt.clientY
       };
 
-      mainPin.style.left = mainPin.offsetLeft - shift.shiftX + `px`;
-      mainPin.style.top = mainPin.offsetTop - shift.shiftY + `px`;
+      mainPin.style.left = `${(mainPin.offsetLeft - shift.shiftX)}px`;
+      mainPin.style.top = `${(mainPin.offsetTop - shift.shiftY)}px`;
 
       const currentYCoordinates = Math.round(parseInt(mainPin.style.top.slice(0, -2), 10));
       const currentXCoordinates = Math.round(parseInt(mainPin.style.left.slice(0, -2), 10));
 
       if (currentYCoordinates > MAXY) {
-        mainPin.style.top = MAXY + `px`;
+        mainPin.style.top = `${MAXY}px`;
       }
 
       if (currentYCoordinates < MINY) {
-        mainPin.style.top = MINY + `px`;
+        mainPin.style.top = `${MINY}px`;
       }
 
       if (currentXCoordinates > MAXX) {
-        mainPin.style.left = MAXX + `px`;
+        mainPin.style.left = `${MAXX}px`;
       }
 
       if (currentXCoordinates < MINX) {
-        mainPin.style.left = MINX + `px`;
+        mainPin.style.left = `${MINX}px`;
       }
 
       window.form.getAddress();
